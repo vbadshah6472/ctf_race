@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to STEM Elites Club Quiz Contest</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://images.pexels.com/photos/2693529/pexels-photo-2693529.jpeg');
+            background-size: cover;
+            color: white;
+            user-select: none; /* Prevent text selection */
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(28, 32, 48, 0.85); /* Semi-transparent background for readability */
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px 5px rgba(0, 140, 255, 0.75);
+            text-align: center;
+            border: 1px solid #007bff;
+        }
+        h1 {
+            background: linear-gradient(to right, #6a11cb, #2575fc); /* New gradient for heading */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 0px 8px rgba(106, 17, 203, 0.8);
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+        }
+        h2 {
+            background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59); /* Different gradient for subtitle */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #ccd6f6;
+        }
+       /* Rules Button Styles */
+       .rules-btn {
+        display: inline-block;
+            position: absolute;
+            bottom:155px;
+            left: 60px; /* Positioning to the left within the container */
+            padding: 9px 10px;
+            font-size: 10px;
+            color: #fff;
+            background: linear-gradient(to right, #ff4d4d, #ff1a1a); /* Gradient red background */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 77, 77, 0.8);
+            z-index: 999; /* Ensure it's above other elements */
+        }
+        .rules-btn:hover {
+            background: linear-gradient(to right, #ff1a1a, #cc0000); /* Darker gradient on hover */
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #de08d7d8;
+            border: 2px solid #0d9b1e; /* Customized border */
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 15px #00c6ff;
+        }
+        .btn:active, .btn:focus {
+            outline: none;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+            box-shadow: 0 0 15px #ffec83; /* Shining effect on hover */
+        }
+        .loading-bar {
+            position: absolute;
+            background-color: #4CAF50;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            transition: width 2s;
+            border-radius: 5px;
+            z-index: 0;
+        }
+        .btn-text {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+    <script>
+        function startChallenge() {
+            const btn = document.getElementById('startButton');
+            const textSpan = document.getElementById('buttonText');
+            textSpan.innerHTML = 'Starting...';
+            document.getElementById('loadingBar').style.width = '100%';
+            btn.disabled = true;
+            setTimeout(function() {
+                window.location.href = 'level1.html';
+            }, 2000); // Simulate a loading time before navigating
+        }
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>CAPTURE THE FLAG RACE</h1>
+        <h2>Organized By STEM ELITES CLUB</h2>
+       <h3>Welcome to the CTF Race!</h3> 
+                         <p><b>We are thrilled to have you here for an exciting race where your knowledge will be put to the test.
+             In this race, you'll be working through a series of levels, solving questions and collecting passwords.</b></p>
+
+        <p><b>Click the button below to begin the quiz. Good luck!</b></p>
+        <button class="btn" id="startButton" onclick="startChallenge()">
+            <span class="btn-text" id="buttonText">Begin the Quiz</span>
+            <div class="loading-bar" id="loadingBar"></div>
+        </button>
+    </div>
+    <button class="rules-btn" onclick="window.location.href='rules.html'">See Rules</button>
+
+</body>
+</html>

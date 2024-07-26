@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rules - STEM ELITES CLUB CTF</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://images.pexels.com/photos/2693529/pexels-photo-2693529.jpeg');
+            background-size: cover;
+            color: white;
+
+            user-select: none; /* Prevent text selection */
+        }
+        
+        .rule-container {
+            max-width: 200px;
+            margin: 50px auto;
+            padding: 60px;
+            height: 200px;
+            background-color: rgba(28, 32, 48, 0.85);
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px 5px rgba(74, 153, 1, 0.75);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            border-radius: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+        }
+        h1 {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 3em; /* Increased font size */
+            text-shadow: 0px 0px 8px rgba(106, 17, 203, 0.8);
+            margin-bottom: 20px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        h2 {
+            background: linear-gradient(to right, #ff6a00, #ee0979);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.8em; /* Increased font size */
+            text-shadow: 0px 0px 8px rgba(255, 106, 0, 0.8);
+            margin: 0;
+        }
+        p {
+            margin: 25px 5px 5px 10px;
+            font-size: 1.2em;
+            text-shadow: 0px 0px 8px rgba(106, 17, 203, 0.8);
+            margin-bottom: 5px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #777;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 20px;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.8);
+            margin-top: 20px;
+            animation: shine 2s infinite;
+        }
+        @keyframes shine {
+            0% {
+                box-shadow: 0 0 15px rgba(76, 175, 80, 0.8);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(76, 175, 80, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 15px rgba(76, 175, 80, 0.8);
+            }
+        }
+    </style>
+</head>
+<body oncopy="return false" onpaste="return false" oncut="return false">
+    <div class="container">
+        <h1>CTF Race Rules</h1>
+        <div class="rule-container">
+            <div class="rule-box">
+                <h2 id="rule-title">Welcome to the CTF Race!</h2>
+                <p id="rule-text">Let's have a look at the rules and guidelines to ensure a fair and thrilling competition. </p>
+            </div>
+            <button class="btn" id="next-btn" onclick="showNextRule()">Next</button>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 CTF Race | Organized by the STEM Elites Club</p>
+        </div>
+    </div>
+
+    <script>
+        const rules = [
+            {title: "FORMAT:", text: "Solve puzzles, submit answers, and collect passwords to unlock the next levels."},
+            {title: "OBJECTIVE", text: "The main objective of this race is to reach the flag and capture it as fast as possible."},
+            {title: "TIME LIMIT", text: "Each level is timed for 60 seconds. Submit the correct answer within the time to get the password. If time runs out, the level will skip automatically."},
+            {title: "PASSWORDS", text: "Note down each password as soon as they appear. Passwords are MUST to claim the win."},
+            {title: "SKIPS", text: "You'll have 3 chances to skip levels. The levels skipped due to timeout or incorrect answers won't yield passwords. The next level will appear automatically."},
+            {title: "WINNING CRITERIA", text: "The team capturing the flag first, with the most passwords collected wins the race."},
+            {title: "GOOD LUCK", text: "Wish You A Good Luck! Think Fast, Act Fast. Let the race against time begin."}
+        ];
+
+        let currentRuleIndex = 0;
+
+        function showNextRule() {
+            currentRuleIndex++;
+            if (currentRuleIndex < rules.length) {
+                document.getElementById("rule-title").textContent = rules[currentRuleIndex].title;
+                document.getElementById("rule-text").textContent = rules[currentRuleIndex].text;
+            } else {
+                const nextBtn = document.getElementById("next-btn");
+                nextBtn.textContent = "Go To Home";
+                nextBtn.onclick = () => window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>

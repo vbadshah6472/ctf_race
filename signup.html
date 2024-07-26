@@ -1,0 +1,582 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>STEM Elites Club Registration</title>
+        <link rel="stylesheet" href="https://kit.fontawesome.com/97ebdf5864.js" crossorigin="anonymous">
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+              apiKey: "AIzaSyCGRs6KPCWUI54sKcqLGr5Vg0jLzHCBVuI",
+              authDomain: "stem-elites-club.firebaseapp.com",
+              databaseURL: "https://stem-elites-club-default-rtdb.firebaseio.com",
+              projectId: "stem-elites-club",
+              storageBucket: "stem-elites-club.appspot.com",
+              messagingSenderId: "1005959264968",
+              appId: "1:1005959264968:web:b7e011e2c6e205612a03fd"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+          </script>
+          
+        
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: sans-serif;
+            }
+            body {
+                width: 100vw;
+                height: 100vh;
+                background: url('https://images.pexels.com/photos/2693529/pexels-photo-2693529.jpeg') no-repeat;
+                background-position: center;
+                background-size: cover;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .container {
+                width: 80%;
+                max-width: 400px;
+                background: rgba(0, 0, 0, 0.3);
+                backdrop-filter: blur(10px);
+                box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                border-radius: 20px;
+                border: 3px solid rgba(255, 255, 255, 0.5);
+                padding: 20px;
+            }
+            h2 {
+                background: linear-gradient(to right, #007eff, #007eff);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-size: 2em;
+                text-transform: uppercase;
+                padding: 20px 0;
+            }
+            .form-step {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+            }
+            .form-step.active {
+                display: flex;
+            }
+            .form-group {
+                position: relative;
+                width: 100%;
+                margin: 20px 0;
+                border-bottom: 3px solid #ffff;
+            }
+            .form-group.half-width {
+                width: 100%;
+                display: inline-block;
+            }
+            .form-group input,
+            .form-group select {
+                width: 100%;
+                height: 50px;
+                padding: 0 40px 0 25px;
+                font-size: 1.2em;
+                background-color: transparent;
+                border: none;
+                outline: none;
+                color: #f8fbfa;
+            }
+            .form-group label {
+                position: absolute;
+                top: 50%;
+                left: 0px;
+                transform: translateY(-50%);
+                font-size: 1.2em;
+                color: #fff;
+                transition: 0.5s;
+            }
+            .form-group input:focus ~ label,
+            .form-group input:valid ~ label,
+            .form-group select:focus ~ label,
+            .form-group select:valid ~ label {
+                top: -5px;
+            }
+            .form-group i {
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+                color: #ffff;
+                font-size: 1.2em;
+            }
+            p {
+                text-align: center;
+                color: #fff;
+                margin: 10px 0;
+            }
+            p > a {
+                text-decoration: none;
+                color: #28b487;
+                font-weight: 600;
+            }
+            p > a:hover {
+                text-decoration: underline;
+                font-style: italic;
+            }
+            #btn {
+                width: 100%;
+                height: 50px;
+                border-radius: 40px;
+                border: none;
+                font-size: 1.5em;
+                text-transform: uppercase;
+                font-weight: 600;
+                margin: 10px 0;
+                cursor: pointer;
+                transition: all 0.5s;
+                background: linear-gradient(to right, #28b487, #007d46);
+                color: #fff;
+            }
+            #btn:hover {
+                background: rgba(0, 0, 0, 0.3);
+                box-shadow: 0 0 20px rgba(0, 0, 255, 0.5);
+            }
+            .btn-step {
+                width: 120px;
+                height: 40px;
+                border-radius: 20px;
+                border: none;
+                font-size: 1em;
+                font-weight: 600;
+                margin: 10px;
+                cursor: pointer;
+                transition: all 0.5s;
+                background: linear-gradient(to right, #28b487, #007d46);
+                color: #ffffff;
+                text-transform: capitalize;
+            }
+            .btn-step:hover {
+                background: rgba(0, 0, 0, 0.3);
+                box-shadow: 0 0 20px rgba(0, 0, 255, 0.5);
+            }
+            .form-nav {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+            }
+            .message-box {
+                background-color: rgba(194, 7, 7, 0.8);
+                padding: 10px 10px;
+                border-radius: 8px;
+                color: #f5f4f2;
+                font-size: 0.9em;
+                position: absolute;
+                right: 10px;
+                display: none;
+                max-width: 300px;
+                text-align: center;
+            }
+            .gender-group {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                margin: 20px 0;
+                color: #ffffff;
+            }
+            .gender-group label {
+                font-size: 1.2em;
+                margin-right: 10px;
+                margin-left: 0px;
+            }
+            .gender-group input {
+                margin-right: 5px;
+                margin-left: 20px;
+                color: #28b487;
+            }
+            .section-group {
+                display: flex;
+                align-items: right;
+                justify-content: space-between;
+                width: 100%;
+                margin: 10px 0;
+                color: #ffffff;
+            }
+            .section-group label {
+                font-size: 1.2em;
+                margin-right: 25px;
+                margin-left: 0px;
+            }
+            .ifMember-group {
+                display: flex;
+                align-items: right;
+                justify-content: space-between;
+                width: 100%;
+                margin: 15px 0;
+                color: #ffffff;
+            }
+            .class-roll-group {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+            }
+            .classdetails-group {
+                position: relative;
+                width: 48%;
+                margin: 20px 0;
+                border-bottom: 3px solid #ffff;
+            }
+            .classdetails-group input,
+            .classdetails-group select {
+                width: 100%;
+                height: 50px;
+                padding: 0 20px 0 25px;
+                font-size: 1.2em;
+                background-color: transparent;
+                border: none;
+                outline: none;
+                color: #f8fbfa;
+            }
+            .classdetails-group label {
+                position: absolute;
+                top: 50%;
+                left: 0px;
+                transform: translateY(-50%);
+                font-size: 1.2em;
+                color: #fff;
+                transition: 0.5s;
+            }
+            .classdetails-group input:focus ~ label,
+            .classdetails-group input:valid ~ label,
+            .classdetails-group select:focus ~ label,
+            .classdetails-group select:valid ~ label {
+                top: -5px;
+            }
+            .classdetails-group i {
+                position: absolute;
+                top: 50%;
+                right: 0px;
+                transform: translateY(-50%);
+                color: #ffff;
+                font-size: 1.2em;
+            }
+            #welcome-elites {
+                font-size: 24px;
+                background: linear-gradient(to right, #28b487, #28b487);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                margin: 10px;
+            }
+            .success-message {
+                display: none;
+                background-color: rgba(28, 184, 67, 0.8);
+                padding: 10px;
+                border-radius: 8px;
+                color: #ffffff;
+                font-size: 1em;
+                text-align: center;
+                margin-top: 20px;
+            }
+        </style>
+        <script src="https://kit.fontawesome.com/97ebdf5864.js" crossorigin="anonymous"></script>
+    </head>
+</head>
+<body>
+    <div class="container">
+        <h2>STEM ELITES CLUB</h2>
+        <h3 id="welcome-elites">Welcome New Elites</h3>
+        <form id="registrationForm">
+            <div class="form-step active">
+                <div class="form-group half-width">
+                    <input type="text" id="firstName" required>
+                    <label for="firstName">First Name</label>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="form-group half-width">
+                    <input type="text" id="lastName" required>
+                    <label for="lastName">Last Name</label>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="gender-group">
+                    <label for="gender">Gender:</label>
+                    <input type="radio" name="gender" value="male" required>Male &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="gender" value="female" required> Female
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="contact" minlength="10" maxlength="10" pattern="(98|97)\d{8}" required>
+                    <label for="contact">Mobile Number</label>
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+               <div class="form-nav">
+                    <button type="button" class="btn-step" id="nextBtn">Continue</button>
+                </div>
+                <p>Already have an account? <a href="index.htm">Login</a></p>
+            </div>
+            <div class="form-step">
+                <div class="form-group">
+                    <input type="number" id="academicYear" min="2081" max="2090" required>
+                    <label for="academicYear">Academic Year (in BS)</label>
+                    <i class="fa-solid fa-calendar"></i>
+                </div>
+                <div class="section-group">
+                    <label for="section">Section :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input type="radio" name="section" value="A" required>A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="section" value="B" required>B&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="class-roll-group">
+                    <div class="classdetails-group">
+                        <input type="number" id="grade" min="6" max="10" required>
+                        <label for="grade">Grade</label>
+                        <i class="fa-solid fa-id-badge"></i>
+                    </div>
+                    <div class="classdetails-group">
+                        <input type="number" id="rollNo" style="text-align: left;" required>
+                        <label for="rollNo">Roll No.</label>
+                        <i class="fa-solid fa-id-badge"></i>
+                    </div>
+                </div>
+                <div class="ifMember-group">
+                    <label for="ifMember">Member of the Club?&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input type="radio" name="ifMember" value="Yes" required>Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="ifMember" value="No" required>No
+                </div>
+                <div class="form-nav">
+                    <button type="button" class="btn-step" id="prevBtn1">Previous</button>
+                    <button type="button" class="btn-step" id="nextBtn1">Next</button>
+                </div>
+                <p>Already have an account? <a href="index.htm">Login</a></p>
+            </div>
+            <div class="form-step">
+                <div class="form-group">
+                    <input type="password" id="password" required minlength="6" pattern="(?=.*\d)(?=.*\W).{6,}">
+                    <label for="password">Password</label>
+                    <i class="fa-solid fa-eye-slash toggle-password" onclick="togglePassword('password', this)"></i>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="confirmPassword" required minlength="6" pattern="(?=.*\d)(?=.*\W).{6,}">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <i class="fa-solid fa-eye-slash toggle-password" onclick="togglePassword('confirmPassword', this)"></i>
+                </div>
+                <div class="form-nav">
+                    <button type="button" class="btn-step" id="prevBtn2">Previous</button>
+                    <button type="submit" class="btn-step">Register</button>
+                </div>
+                <p>Already have an account? <a href="index.htm">Login</a></p>
+            </div>
+        </form>
+        <div class="success-message" id="successMessage"></div>
+    </div>
+    <script>
+        // Function to convert input value to uppercase
+        function convertToUpperCase(inputId) {
+            const input = document.getElementById(inputId);
+            input.value = input.value.toUpperCase();
+        }
+
+        // Function to validate and proceed to the next step
+        function proceedToNextStep(currentStepIndex, nextStepIndex) {
+            // Perform validation for the current step
+            const currentStepInputs = document.querySelectorAll('.form-step')[currentStepIndex].querySelectorAll('input, select');
+            let isValid = true;
+
+            currentStepInputs.forEach(input => {
+                if (!input.checkValidity()) {
+                    isValid = false;
+                    input.reportValidity();
+                }
+            });
+
+            // If all inputs are valid, proceed to the next step
+            if (isValid) {
+                document.querySelector('.form-step.active').classList.remove('active');
+                document.querySelectorAll('.form-step')[nextStepIndex].classList.add('active');
+                updateLabel(nextStepIndex);
+            }
+        }
+
+        // Function to update the dynamic label
+        function updateLabel(stepIndex) {
+            const label = document.getElementById('welcome-elites');
+            switch(stepIndex) {
+                case 0:
+                    label.innerText = 'Welcome New Elites';
+                    break;
+                case 1:
+                    label.innerText = 'Enter Your Academic Details';
+                    break;
+                case 2:
+                    label.innerText = 'Create New Password';
+                    break;
+                default : 
+                    label.innerText = 'CONGRATULATIONS';
+                     break;
+            }
+        }
+
+        // Function to toggle password visibility
+        function togglePassword(inputId, toggleIcon) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            } else {
+                input.type = 'password';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            }
+        }
+
+        // Add event listeners to automatically convert input to uppercase and validate form submission
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listeners to input fields for auto-uppercase
+            document.getElementById('firstName').addEventListener('input', function() {
+                convertToUpperCase('firstName');
+            });
+
+            document.getElementById('lastName').addEventListener('input', function() {
+                convertToUpperCase('lastName');
+            });
+
+            // Add event listeners to navigation buttons for form validation and progression
+            document.getElementById('nextBtn').addEventListener('click', function() {
+                proceedToNextStep(0, 1);
+            });
+
+            document.getElementById('nextBtn1').addEventListener('click', function() {
+                proceedToNextStep(1, 2);
+            });
+
+            document.getElementById('prevBtn1').addEventListener('click', function() {
+                document.querySelector('.form-step.active').classList.remove('active');
+                document.querySelectorAll('.form-step')[0].classList.add('active');
+                updateLabel(0);
+            });
+
+            document.getElementById('prevBtn2').addEventListener('click', function() {
+                document.querySelector('.form-step.active').classList.remove('active');
+                document.querySelectorAll('.form-step')[1].classList.add('active');
+                updateLabel(1);
+            });
+
+            // Form submission event listener
+            document.getElementById('registrationForm').addEventListener('submit', function(event) 
+            {     event.preventDefault();
+                // Validate if the password and confirm password match
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+
+                if (password !== confirmPassword) {
+                    alert("Passwords do not match. Please try again.");
+                    return;
+                }
+   
+            // Get values from form
+            const academicYear = document.getElementById('academicYear').value.slice(-2);
+            const grade = document.getElementById('grade').value;
+            const section = document.querySelector('input[name="section"]:checked').value;
+            const rollNo = document.getElementById('rollNo').value.padStart(2, '0');
+
+            // Generate UserID
+            const userId = `${academicYear}${grade}${section}${rollNo}`;
+
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            successMessage.innerHTML = `<p style="font-size: 1.5em; font-weight: bold;">Registration Successful!</p>
+                <p>Your UserID is: <span style="font-size: 1.2em; color: blue;">${userId}</span></p>
+                <p>Please go back to the <a href="index.htm">Login</a> page to continue. Thank You!</p>
+            `; {
+                successMessage.style.display = 'block';}
+           // Hide the form
+            document.getElementById('registrationForm').style.display = 'none';
+      // Function to reset the form for a new registration
+            function resetForm() {
+                document.querySelector('.container form').classList.remove('hidden');
+                document.getElementById('successMessage').classList.remove('visible');
+                document.querySelector('.form-step.active').classList.remove('active');
+                document.querySelectorAll('.form-step')[0].classList.add('active');
+                updateLabel(0);
+             }
+           
+            
+           });  
+         }); 
+        
+    </script>
+
+<script>
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+  
+      // Validate if the password and confirm password match
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+  
+      if (password !== confirmPassword) {
+        alert("Passwords do not match. Please try again.");
+        return;
+      }
+  
+      // Get values from form
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+      const gender = document.querySelector('input[name="gender"]:checked').value;
+      const contact = document.getElementById('contact').value;
+      const academicYear = document.getElementById('academicYear').value.slice(-2);
+      const grade = document.getElementById('grade').value;
+      const section = document.querySelector('input[name="section"]:checked').value;
+      const rollNo = document.getElementById('rollNo').value.padStart(2, '0');
+      const ifMember = document.querySelector('input[name="ifMember"]:checked').value;
+  
+      // Generate UserID
+      const userId = `${academicYear}${grade}${section}${rollNo}`;
+  
+      // Create a new user with Firebase Authentication
+      firebase.auth().createUserWithEmailAndPassword(`${userId}@stem-elites-club.com`, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+  
+          // Store user data in the Firebase Realtime Database
+          firebase.database().ref('users/' + userId).set({
+            firstName: firstName,
+            lastName: lastName,
+            gender: gender,
+            contact: contact,
+            academicYear: academicYear,
+            grade: grade,
+            section: section,
+            rollNo: rollNo,
+            ifMember: ifMember
+          });
+  
+          // Show success message
+          const successMessage = document.getElementById('successMessage');
+          successMessage.innerHTML = `<p style="font-size: 1.5em; font-weight: bold;">Registration Successful!</p>
+            <p>Your UserID is: <span style="font-size: 1.2em; color: blue;">${userId}</span></p>
+            <p>Please go back to the <a href="index.htm">Login</a> page to continue. Thank You!</p>`;
+          successMessage.style.display = 'block';
+  
+          // Hide the form
+          document.getElementById('registrationForm').style.display = 'none';
+        })
+        .catch((error) => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          alert(errorMessage);
+        });
+    });
+  </script>
+  
+</body>
+</html>

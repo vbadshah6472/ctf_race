@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTF Challenge - Winner</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://images.pexels.com/photos/2693529/pexels-photo-2693529.jpeg');
+            background-size: cover;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            background-color: rgba(28, 32, 48, 0.85);
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px 5px rgba(0, 140, 255, 0.75);
+        }
+        .congrats-message {
+            font-size: 2em;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 0px 8px rgba(106, 17, 203, 0.8);
+            margin-top: 20px;
+            animation: shine 2s infinite;
+        }
+        .flag-image {
+            width: 40%;
+            height: auto;
+            background-color: transparent;
+            margin: 0 auto;
+        }
+        .home-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #fff;
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 65, 108, 0.8);
+            text-decoration: none;
+            margin-top: 20px;
+            animation: shine 2s infinite;
+        }
+        .home-btn:hover {
+            background: linear-gradient(to right, #ff4b2b, #ff416c);
+        }
+        @keyframes shine {
+            0% {
+                box-shadow: 0 0 15px rgba(255, 65, 108, 0.8);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(255, 65, 108, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 15px rgba(255, 65, 108, 0.8);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://miro.medium.com/v2/resize:fit:602/1*tydOsH44M5zHA17KaFPZFQ.png" alt="Capture the Flag" class="flag-image">
+        <h1 class="congrats-message">Congratulations!! You captured the flag. </h1>
+        <a href="index.html" class="home-btn">Go Back Home</a>
+    </div>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
+</html>

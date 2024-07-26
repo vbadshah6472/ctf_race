@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 20 - STEM ELITES CLUB CTF</title>
+    <style>
+        /* Similar CSS to Level 1 and Level 2 */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://images.pexels.com/photos/2693529/pexels-photo-2693529.jpeg');
+            background-size: cover;
+            color: white;
+            user-select: none;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(28, 32, 48, 0.85);
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px 5px rgba(0, 140, 255, 0.75);
+            text-align: center;
+            border: 1px solid #007bff;
+            position: relative;
+        }
+        .timer {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background: linear-gradient(to right, #f12711, #f5af19);
+            border-radius: 8px;
+            box-shadow: 0 0 15px 5px rgba(241, 39, 17, 0.8);
+            color: #fff;
+            text-align: center;
+            font-size: 16px;
+        }
+        h1, h2 {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5em;
+            text-shadow: 0px 0px 8px rgba(106, 17, 203, 0.8);
+            margin-bottom: 20px;
+        }
+        h3 {
+            margin: 0;
+            font-size: 15px;
+        }
+        .puzzle {
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: 2px solid #00c6ff;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #000;
+            background-color: #fff;
+            box-shadow: none;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #007bff;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 0 15px #00c6ff;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+            box-shadow: 0 0 15px #ffec83;
+        }
+        .message {
+            margin-top: 20px;
+        }
+        .next-level-btn {
+            display: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.8);
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 20px;
+            animation: shine 2s infinite;
+        }
+        .next-level-btn:hover {
+            background-color: #06c435;
+            border-color: #23ec66;
+            box-shadow: 0 0 15px #ffec83;
+        }
+        @keyframes shine {
+            0% {
+                box-shadow: 0 0 15px rgba(76, 175, 80, 0.8);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(76, 175, 80, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 15px rgba(76, 175, 80, 0.8);
+            }
+        }
+        .skip-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            padding: 5px 10px;
+            font-size: 14px;
+            color: #fff;
+            background: linear-gradient(to right, #ff4d4d, #ff1a1a);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 77, 77, 0.8);
+            z-index: 999;
+        }
+        .skip-btn:hover {
+            background: linear-gradient(to right, #ff1a1a, #cc0000);
+        }
+        .skip-warning {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px;
+            background-color: rgba(255, 77, 77, 0.9);
+            color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(255, 77, 77, 0.8);
+            z-index: 999;
+            display: none;
+        }
+        @keyframes slideIn {
+            0% {
+                transform: translate(-50%, 100%);
+            }
+            100% {
+                transform: translate(-50%, 0);
+            }
+        }
+        .copied-notification {
+            display: none;
+            color: yellow;
+            margin-top: 10px;
+            animation: fadeOut 2s forwards;
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body oncopy="return false" onpaste="return false" oncut="return false">
+    <div class="container">
+        <div class="timer">
+            <h3>Time Left: <span id="timer">01:00</span></h3>
+        </div>
+        <h1>CAPTURE THE FLAG</h1>
+        <h2>Level 20</h2>
+        <p class="puzzle">If A + B = 23 and AB = 130, the value of A - B is : <br>
+            <div>
+            <input type="text" id="answerInput" placeholder="Enter your answer" onkeypress="if(event.keyCode == 13) {checkAnswer();}">
+            <button class="btn" onclick="checkAnswer()">Submit</button>
+        </div>
+        <div class="message" id="message"></div>
+        <div class="copied-notification" id="copiedNotification">Password copied to clipboard!</div>
+        <button class="next-level-btn" onclick="window.location.href='end.html'">Proceed to Next Level</button>
+        <!-- Skip Button -->
+        <button class="skip-btn" onclick="showSkipWarning()">Skip (3)</button>
+        <!-- Skip Warning Message -->
+        <div class="skip-warning" id="skipWarning">
+            Are you sure to skip this level? 
+            <button onclick="hideSkipWarning()">No</button>
+            <button onclick="skipLevel()">Yes, Skip</button>
+        </div>
+    </div>
+    <script>
+        let score = 0;
+        let incorrectAttempts = 0;
+        const levelPassword = 'Studies321'; // Example password for the next level
+        let hasAnsweredCorrectly = false;
+        let timeLeft = 60; // 1 minute in seconds
+        let skipsLeft = 3; // Number of skips allowed
+
+        document.addEventListener('DOMContentLoaded', () => {
+            skipsLeft = parseInt(localStorage.getItem('skipsLeft')) || skipsLeft;
+            updateSkipButtonText();
+        });
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById("answerInput").value.trim();
+            const correctAnswer = "3"; // Correct answer for this level
+            if (userAnswer === correctAnswer && !hasAnsweredCorrectly) {
+                document.getElementById("message").innerHTML = `<span style='color: green;'>Super!! Collect your password : <span id="password">${levelPassword}</span></span>`;
+                document.querySelector('.next-level-btn').style.display = 'block';
+                updateScore(10);
+                incorrectAttempts = 0;
+                hasAnsweredCorrectly = true;
+                document.getElementById("answerInput").value = "";
+                // Set up the password copy functionality
+                setupPasswordCopy();
+            } else if (!hasAnsweredCorrectly) {
+                document.getElementById("message").innerHTML = `<span style='color: red;'>Incorrect! Try again.</span>`;
+                updateScore(-2);
+                incorrectAttempts++;
+                if (incorrectAttempts >= 3) {
+                    showSkipWarning();
+                }
+            }
+        }
+
+        function setupPasswordCopy() {
+            const passwordElement = document.getElementById("password");
+            passwordElement.style.cursor = 'pointer';
+            passwordElement.addEventListener('click', function() {
+                navigator.clipboard.writeText(passwordElement.innerText).then(function() {
+                    const copiedNotification = document.getElementById("copiedNotification");
+                    copiedNotification.style.display = 'block';
+                    setTimeout(() => {
+                        copiedNotification.style.display = 'none';
+                    }, 2000);
+                });
+            });
+        }
+
+        function updateScore(points) {
+            score += points;
+            document.getElementById("score").innerText = score;
+            localStorage.setItem('score', score);
+        }
+
+        function updateSkipButtonText() {
+            const skipButton = document.querySelector('.skip-btn');
+            skipButton.innerText = `Skip (${skipsLeft})`;
+            if (skipsLeft <= 0) {
+                skipButton.style.display = 'none';
+            }
+        }
+
+        function showSkipWarning() {
+            if (skipsLeft > 0) {
+                const skipWarning = document.getElementById("skipWarning");
+                skipWarning.style.display = 'block';
+                skipWarning.style.animation = 'slideIn 0.5s forwards';
+            }
+        }
+
+        function hideSkipWarning() {
+            const skipWarning = document.getElementById("skipWarning");
+            skipWarning.style.display = 'none';
+        }
+
+        function skipLevel() {
+            hideSkipWarning();
+            skipsLeft--;
+            localStorage.setItem('skipsLeft', skipsLeft);
+            updateSkipButtonText();
+            document.getElementById("message").innerHTML = `<span style='color: green;'>Skipped! Collect your password : <span id="password">${levelPassword}</span></span>`;
+            document.querySelector('.next-level-btn').style.display = 'block';
+            updateScore(-5);
+            hasAnsweredCorrectly = true;
+            setupPasswordCopy();
+        }
+
+        function startTimer() {
+            const timerElement = document.getElementById("timer");
+            const countdown = setInterval(() => {
+                if (timeLeft <= 0 || hasAnsweredCorrectly) {
+                    clearInterval(countdown);
+                    if (!hasAnsweredCorrectly) {
+                        skipLevel();
+                    }
+                } else {
+                    timeLeft--;
+                    const minutes = Math.floor(timeLeft / 60);
+                    const seconds = timeLeft % 60;
+                    timerElement.innerText = `${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                }
+            }, 1000);
+        }
+
+        startTimer();
+    </script>
+</body>
+</html>
+
