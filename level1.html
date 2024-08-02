@@ -222,11 +222,12 @@
                 hasAnsweredCorrectly = true;
                 document.getElementById("answerInput").value = ""; // Clear input field after correct answer
 
+                // Play correct answer sound
+                 playSound('correctSound');
                 // Set up the password copy functionality
                 setupPasswordCopy();
 
-                // Play correct answer sound
-                 playSound('correctSound');
+               
             } else if (!hasAnsweredCorrectly) {
                 document.getElementById("message").innerHTML = "<span style='color: red;'>Incorrect. Try again.</span>";
                 incorrectAttempts++;
