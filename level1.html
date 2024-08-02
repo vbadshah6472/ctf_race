@@ -194,6 +194,10 @@
             <button onclick="skipLevel()">Yes, Skip</button>
         </div>
     </div>
+
+    <!-- Audio Elements -->
+    <audio id="incorrectSound" src="incorrect_answer_sound_effect.m4a"></audio>
+    <audio id="correctSound" src="correct_answer_sound_effect.m4a"></audio>
     <script>
         let score = 0;
         let incorrectAttempts = 0;
@@ -220,15 +224,26 @@
 
                 // Set up the password copy functionality
                 setupPasswordCopy();
+
+                // Play correct answer sound
+                 playSound('correctSound');
             } else if (!hasAnsweredCorrectly) {
                 document.getElementById("message").innerHTML = "<span style='color: red;'>Incorrect. Try again.</span>";
                 incorrectAttempts++;
                 if (incorrectAttempts % 3 === 0 && incorrectAttempts >= 3) {
                     updateScore(-2); // Decrease score after 3 consecutive incorrect attempts
                 }
+
+                 // Play incorrect answer sound
+                 playSound('incorrectSound');
             }
         }
-
+         function playSound(soundId) {
+            const sound = document.getElementById(soundId);
+            if (sound) {
+                sound.play();
+            }
+         }
         function updateScore(points) {
             score += points;
             // Update the scoreboard if it was present
